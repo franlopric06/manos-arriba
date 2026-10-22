@@ -23,7 +23,7 @@ const situaciones = [
   { nivel: 1, icono: "familia", emoji: "🫂", correcta: "seguro", texto: "Me llegó un mensaje raro y se lo mostré a mi familia", explica: "Eso estuvo bien. Si algo te parece raro, pedir ayuda siempre es lo mejor." },
   { nivel: 1, icono: "no", emoji: "🙅", correcta: "seguro", texto: "Uno me pidió una foto y le dije que no", explica: "Eso estuvo muy bien: siempre podés decir que no. Nadie te puede obligar." },
   { nivel: 1, icono: "maestra", emoji: "🧑‍🏫", correcta: "seguro", texto: "Le conté a la seño que en el grupo del grado me hacen sentir mal", explica: "Eso estuvo bien: los grandes te pueden ayudar. No te lo guardes." },
-  { nivel: 1, icono: "pelota", emoji: "⚽", correcta: "seguro", texto: "Dejé el celu un rato y salí a jugar a la pelota", explica: "Eso estuvo bien: no está bueno estar todo el día con el celular. Salir a jugar con tus amigos también es re divertido." },
+    { nivel: 1, icono: "apreton", emoji: "🤝", correcta: "seguro", texto: "Dejé el celu un rato y salí a jugar afuera con mis amigos", explica: "Eso estuvo bien: no está bueno estar todo el día con el celular. Jugar con tus amigos también es re divertido." },
   { nivel: 1, icono: "ojos", emoji: "👀", correcta: "seguro", texto: "Vi un video que me dio miedo y se lo conté a mi mamá", explica: "Eso estuvo bien. Si algo te asusta en internet, contáselo a un grande." },
 
   // ---------- Nivel 2: Medianos (8 a 10 años) ----------

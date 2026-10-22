@@ -1,6 +1,45 @@
 import { VOZ_PREFERIDA } from "../config";
 
-// Lee textos en voz alta. Busca la voz más natural que haya, preferentemente con acento argentino
+// Lee textos en voz alta:
+// 1) Si la frase tiene un audio grabado con la voz de Elena (en public/audios), reproduce ese audio.
+// 2) Si no lo tiene (o falla), usa la voz del navegador, buscando la más natural en español.
+
+// ---------- Audios grabados ----------
+
+let indiceAudios = {}; // frase -> nombre del archivo .mp3 (lo arma "npm run audios")
+let audioActual = null;
+let avisarFin = null; // función que avisa que terminó el audio actual
+
+// Al abrir el juego, carga el índice de audios (si no existe, se usa la voz del navegador)
+fetch("/audios/indice.json")
+  .then((respuesta) => (respuesta.ok ? respuesta.json() : {}))
+  .then((indice) => {
+    indiceAudios = indice;
+  })
+  .catch(() => {});
+
+// Reproduce un audio. Devuelve una promesa: true si sonó (o lo cortaron), false si no se pudo reproducir
+function reproducirAudio(archivo) {
+  return new Promise((listo) => {
+    const audio = new Audio(`/audios/${archivo}`);
+    audioActual = audio;
+
+    const terminar = (sono) => {
+      if (audioActual === audio) {
+        audioActual = null;
+        avisarFin = null;
+      }
+      listo(sono);
+    };
+    avisarFin = () => terminar(true);
+
+    audio.onended = () => terminar(true);
+    audio.onerror = () => terminar(false);
+    audio.play().catch(() => terminar(false));
+  });
+}
+
+// ---------- Voz del navegador (respaldo) ----------
 
 let vozElegida = null;
 
@@ -32,14 +71,11 @@ if ("speechSynthesis" in window) {
   });
 }
 
-// Devuelve una promesa que se cumple cuando termina de hablar
-export function hablar(texto) {
+function hablarNavegador(texto) {
   return new Promise((listo) => {
     if (!("speechSynthesis" in window)) return listo();
 
-    speechSynthesis.cancel(); // corta lo que estaba diciendo antes
     const frase = new SpeechSynthesisUtterance(texto);
-
     vozElegida = vozElegida || elegirVoz();
     if (vozElegida) {
       frase.voice = vozElegida;
@@ -54,6 +90,23 @@ export function hablar(texto) {
   });
 }
 
+// ---------- Lo que usa el resto del juego ----------
+
+// Corta lo que se esté diciendo (audio o voz del navegador)
 export function callar() {
+  if (audioActual) audioActual.pause();
+  if (avisarFin) avisarFin();
   if ("speechSynthesis" in window) speechSynthesis.cancel();
+}
+
+// Dice una frase y devuelve una promesa que se cumple cuando termina de hablar
+export async function hablar(texto) {
+  callar(); // corta lo que estaba diciendo antes
+
+  const archivo = indiceAudios[texto];
+  if (archivo) {
+    const sono = await reproducirAudio(archivo);
+    if (sono) return;
+  }
+  return hablarNavegador(texto);
 }

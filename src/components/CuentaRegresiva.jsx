@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { sonar } from "../services/sonidos";
+import { FRASES } from "../data/frases";
 
 const PASOS = ["3", "2", "1", "¡YA!"];
 
@@ -14,7 +15,7 @@ export default function CuentaRegresiva({ decir, alTerminar }) {
 
   // Al aparecer, la voz avisa
   useEffect(() => {
-    decir("¡Preparados!");
+    decir(FRASES.preparados);
   }, [decir]);
 
   // Cada paso dura un poquito menos de un segundo; después del "¡YA!" arranca el juego

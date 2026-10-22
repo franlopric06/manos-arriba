@@ -1,14 +1,13 @@
 import { useEffect } from "react";
 import Confeti from "../components/Confeti";
 import { sonar } from "../services/sonidos";
+import { FRASES } from "../data/frases";
 
 // Resultado final: puntos, estrellas y si se gana la golosina
 export default function PaginaFin({ puntos, total, puntosGolosina, decir, alOtraVez }) {
   const gano = puntos >= puntosGolosina;
   const estrellas = Math.max(1, Math.round((puntos / total) * 5));
-  const mensaje = gano
-    ? "¡Sos un Guardián Digital! Ganaste una golosina."
-    : "¡Casi! Probá otra vez para ganar la golosina.";
+  const mensaje = gano ? FRASES.gano : FRASES.casi;
 
   useEffect(() => {
     if (gano) sonar("bien");

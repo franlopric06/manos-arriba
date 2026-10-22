@@ -2,17 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import Confeti from "../components/Confeti";
 import { sonar } from "../services/sonidos";
 import { MS_RESULTADO_MINIMO, MS_PAUSA_FINAL, MS_RESULTADO_MAXIMO, MS_REPETIR_AVISO } from "../config";
+import { FRASES, armarTitulos, fraseResultado } from "../data/frases";
 
 // Espera la cantidad de milisegundos indicada
 const esperar = (ms) => new Promise((listo) => setTimeout(listo, ms));
-
-// Título según cómo le fue: felicita si acertó; si no, avisa y aclara cuál era la respuesta
-function armarTitulos(eleccion, acerto, correcta) {
-  if (acerto) return { titulo: "¡Muy bien!", aclaracion: "" };
-  const aclaracion = correcta === "peligro" ? "Eso es peligroso." : "Eso es seguro.";
-  if (eleccion === null) return { titulo: "¡Se acabó el tiempo!", aclaracion };
-  return { titulo: correcta === "peligro" ? "¡Cuidado!" : "¡Ups!", aclaracion };
-}
 
 // Muestra si acertó o no, explica por qué y espera a que el chico baje las manos
 export default function PaginaResultado({ situacion, respuesta, decir, esperarManos, manosAbajo, alTerminar }) {
@@ -36,7 +29,7 @@ export default function PaginaResultado({ situacion, respuesta, decir, esperarMa
 
     async function leerYEsperar() {
       const inicio = Date.now();
-      await Promise.race([decir(`${titulo} ${aclaracion} ${situacion.explica}`), esperar(MS_RESULTADO_MAXIMO)]);
+      await Promise.race([decir(fraseResultado(situacion, eleccion, acerto)), esperar(MS_RESULTADO_MAXIMO)]);
 
       const yaPaso = Date.now() - inicio;
       await esperar(Math.max(MS_PAUSA_FINAL, MS_RESULTADO_MINIMO - yaPaso));
@@ -48,7 +41,7 @@ export default function PaginaResultado({ situacion, respuesta, decir, esperarMa
     return () => {
       cancelado = true;
     };
-  }, [titulo, aclaracion, situacion, decir]);
+  }, [situacion, eleccion, acerto, decir]);
 
   // 3) Pasa a la siguiente cuando terminó la devolución Y (si se juega con cámara) tiene las manos abajo
   useEffect(() => {
@@ -61,8 +54,8 @@ export default function PaginaResultado({ situacion, respuesta, decir, esperarMa
   useEffect(() => {
     if (!esperandoManos) return;
 
-    decir("Bajá las manos para la siguiente pregunta");
-    const repetir = setInterval(() => decir("Bajá las manos"), MS_REPETIR_AVISO);
+    decir(FRASES.bajarManos);
+    const repetir = setInterval(() => decir(FRASES.bajarManosCorto), MS_REPETIR_AVISO);
 
     return () => clearInterval(repetir);
   }, [esperandoManos, decir]);
