@@ -113,7 +113,7 @@ export default function App() {
             />
           </>
         ) : (
-          <main className="flex min-h-0 flex-1 flex-col items-center justify-center">
+          <main className="flex min-h-0 flex-1 flex-col items-center justify-center-safe overflow-y-auto">
             {enInicio && (
               <PaginaInicio
                 estadoCamara={camara.estado}

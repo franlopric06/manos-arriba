@@ -13,39 +13,39 @@ export default function PaginaInicio({ estadoCamara, camaras, camaraId, alElegir
   if (estadoCamara === "error") aviso = "No se pudo usar la cámara. Se juega tocando las respuestas o con las flechas ← →";
 
   return (
-    <div className="entrar flex w-full max-w-3xl flex-col items-center gap-[min(2vh,1rem)] rounded-3xl bg-noche-2/90 px-5 py-[min(3vh,1.75rem)] text-center">
-      <h1 className="font-titulo text-[min(11vh,13vw)] leading-[0.95] text-estrella">¡Manos arriba!</h1>
+    <div className="entrar flex w-full max-w-3xl flex-col items-center gap-[min(1.8vh,1rem)] rounded-3xl bg-noche-2/90 px-4 py-[min(2.5vh,1.75rem)] sm:px-5 text-center">
+      <h1 className="font-titulo text-[min(10vh,12vw)] leading-[0.95] text-estrella">¡Manos arriba!</h1>
 
       {/* Cómo se juega: mano izquierda = seguro, mano derecha = peligroso */}
-      <div className="flex items-end justify-center gap-[min(6vw,3rem)]">
+      <div className="flex items-end justify-center gap-[min(4vw,3rem)]">
         <figure className="flex flex-col items-center gap-1">
-          <img src="/iconos/mano.webp" alt="" className="h-[min(10vh,16vw)]" />
-          <figcaption className="rounded-full bg-black/55 px-3 py-0.5 text-[max(0.8rem,min(2.6vh,1.1rem))] font-extrabold text-seguro">Izquierda = seguro</figcaption>
+          <img src="/iconos/mano.webp" alt="" className="h-[min(9vh,12vw)]" />
+          <figcaption className="rounded-full bg-black/55 px-3 py-0.5 whitespace-nowrap text-[max(0.75rem,min(2.6vh,3.6vw,1.1rem))] font-extrabold text-seguro">Izquierda = seguro</figcaption>
         </figure>
         <figure className="flex flex-col items-center gap-1">
-          <img src="/iconos/mano.webp" alt="" className="h-[min(10vh,16vw)] -scale-x-100" />
-          <figcaption className="rounded-full bg-black/55 px-3 py-0.5 text-[max(0.8rem,min(2.6vh,1.1rem))] font-extrabold text-peligro">Derecha = peligroso</figcaption>
+          <img src="/iconos/mano.webp" alt="" className="h-[min(9vh,12vw)] -scale-x-100" />
+          <figcaption className="rounded-full bg-black/55 px-3 py-0.5 whitespace-nowrap text-[max(0.75rem,min(2.6vh,3.6vw,1.1rem))] font-extrabold text-peligro">Derecha = peligroso</figcaption>
         </figure>
       </div>
 
       <p className="font-titulo text-[max(1.1rem,min(4.5vh,1.9rem))]">¿Quién juega?</p>
 
       {/* Un botón por modo: tocar uno arranca el juego */}
-      <div className="flex flex-wrap justify-center gap-3">
+      <div className="grid w-full grid-cols-2 gap-2 sm:flex sm:w-auto sm:flex-wrap sm:justify-center sm:gap-3">
         {Object.entries(MODOS).map(([clave, modo]) => (
           <button
             key={clave}
             disabled={preparando}
             onClick={() => alJugar({ modo: clave, conCamara, conVoz })}
-            className="flex min-w-[8.5rem] flex-col items-center rounded-2xl bg-estrella px-5 py-[min(1.4vh,0.6rem)] text-noche transition-transform hover:scale-105 focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-tinta disabled:opacity-60"
+            className="flex flex-col items-center rounded-2xl sm:min-w-[8.5rem] bg-estrella px-5 py-[min(1.4vh,0.6rem)] text-noche transition-transform hover:scale-105 focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-tinta disabled:opacity-60"
           >
-            <span className="font-titulo text-[max(1.3rem,min(5vh,2rem))] leading-none">{modo.nombre}</span>
-            <span className="text-[max(0.7rem,min(2vh,0.9rem))] font-extrabold">{modo.edades}</span>
+            <span className="font-titulo text-[max(1.2rem,min(5vh,6.5vw,2rem))] leading-none">{modo.nombre}</span>
+            <span className="text-[max(0.65rem,min(2vh,3vw,0.9rem))] font-extrabold whitespace-nowrap">{modo.edades}</span>
           </button>
         ))}
       </div>
 
-      <div className="flex flex-wrap justify-center gap-5 text-[max(0.8rem,min(2.4vh,1rem))] font-extrabold">
+      <div className="flex flex-wrap justify-center gap-x-5 gap-y-1 text-[max(0.8rem,min(2.4vh,1rem))] font-extrabold">
         <label className="flex cursor-pointer items-center gap-2">
           <input
             id="opcion-camara"
