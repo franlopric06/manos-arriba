@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import Confeti from "../components/Confeti";
+import Propaganda from "../components/Propaganda";
 import { sonar } from "../services/sonidos";
 import { FRASES } from "../data/frases";
 
@@ -29,6 +30,8 @@ export default function PaginaFin({ puntos, total, puntosGolosina, decir, alOtra
         </p>
         <p className="mx-auto mt-2 max-w-[34ch] text-[max(1rem,min(4vh,1.875rem))] font-extrabold">{mensaje}</p>
       </div>
+
+      <Propaganda />
 
       <button
         onClick={alOtraVez}

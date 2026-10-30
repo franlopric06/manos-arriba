@@ -1,16 +1,20 @@
 @import "tailwindcss";
 
 /* Paleta y fuentes del juego: después se usan como clases, ej. bg-noche, text-estrella, font-titulo */
+/* Colores sacados del logo del IEST: fondo gris, carteles rojos y dorado para títulos y botones */
+/* (el verde de SEGURO y el rojo de PELIGROSO se mantienen porque todos los entienden al toque) */
 @theme {
-  --color-noche: #16133d;
-  --color-noche-2: #221e5a;
-  --color-tinta: #f6f4ff;
-  --color-tinta-suave: #b9b4e8;
+  --color-noche: #4a4444; /* fondo: gris del logo */
+  --color-noche-2: #a3161f; /* carteles: rojo del logo */
+  --color-tinta: #faf7f5; /* texto principal: blanco */
+  --color-tinta-suave: #f7d3d5; /* texto secundario: rosado clarito */
   --color-seguro: #1fd37a;
   --color-seguro-osc: #0b5c34;
-  --color-peligro: #ff4f62;
+  --color-peligro: #ef3340; /* rojo del logo */
   --color-peligro-osc: #6e1622;
-  --color-estrella: #ffd23f;
+  --color-estrella: #ffc61a; /* dorado del logo */
+  --color-panel: #0b7cc1; /* cuadro de preguntas y respuestas: azul celeste tecnológico */
+  --color-panel-borde: #7fd8ff; /* borde celeste clarito */
 
   --font-titulo: "Lilita One", system-ui, sans-serif;
   --font-texto: "Nunito", system-ui, sans-serif;

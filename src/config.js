@@ -5,8 +5,9 @@
 // segundos: null = sin tiempo (los más chiquitos responden tranquilos)
 export const MODOS = {
   chicos: { nombre: "Chicos", edades: "5 a 7 años", niveles: [1], preguntas: 6, segundos: null, puntosGolosina: 4 },
-  medianos: { nombre: "Medianos", edades: "8 a 10 años", niveles: [2], preguntas: 8, segundos: 15, puntosGolosina: 6 },
-  grandes: { nombre: "Grandes", edades: "11 años o más", niveles: [3], preguntas: 8, segundos: 8, puntosGolosina: 6 },
+  medianos: { nombre: "Medianos", edades: "8 a 10 años", niveles: [2], preguntas: 6, segundos: 20, puntosGolosina: 4 },
+  grandes: { nombre: "Grandes", edades: "11 años o más", niveles: [3], preguntas: 6, segundos: 15, puntosGolosina: 5 },
+  desafio: { nombre: "Desafío", edades: "Secundaria y adultos", niveles: [4], preguntas: 6, segundos: 20, puntosGolosina: 5 },
 };
 
 // Cuánto tiempo tiene que mantener la mano levantada para que cuente como respuesta

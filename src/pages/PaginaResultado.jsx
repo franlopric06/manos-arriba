@@ -67,12 +67,12 @@ export default function PaginaResultado({ situacion, respuesta, decir, esperarMa
       {!acerto && <div className="parpadeo-mal pointer-events-none fixed inset-0 z-40" />}
 
       <div
-        className={`rebote w-full max-w-5xl rounded-3xl border-[3px] bg-noche-2/90 px-4 py-3 text-center md:px-6 md:py-4 ${
+        className={`rebote w-full max-w-5xl rounded-3xl border-[3px] bg-panel/80 px-4 py-3 text-center shadow-[0_0_30px_rgb(127_216_255/0.35)] backdrop-blur-sm md:px-6 md:py-4 ${
           acerto ? "border-seguro" : "border-peligro"
         }`}
       >
         <p
-          className={`font-titulo text-[max(1.5rem,min(7vh,9vw))] leading-none ${
+          className={`inline-block rounded-2xl bg-black/55 px-5 py-1 font-titulo text-[max(1.5rem,min(7vh,9vw))] leading-tight ${
             acerto ? "text-seguro" : "text-peligro"
           }`}
         >

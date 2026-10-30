@@ -12,15 +12,19 @@ export const PUNTOS = {
   MUNECA_DERECHA: 16,
 };
 
+// Cuántas personas busca a la vez. Después se queda con la que juega (la más cercana).
+// Así, si alguien pasa por atrás, no le "roba" el turno al que está jugando.
+const PERSONAS_MAXIMAS = 3;
+
 let detector = null;
 let cargando = null;
 
-// Opciones del detector: modo video y una sola persona
+// Opciones del detector: modo video y hasta 3 personas
 function opciones(modelo, procesador) {
   return {
     baseOptions: { modelAssetPath: modelo, delegate: procesador },
     runningMode: "VIDEO",
-    numPoses: 1,
+    numPoses: PERSONAS_MAXIMAS,
   };
 }
 
@@ -73,13 +77,40 @@ function manoLevantada(cuerpo, muneca, codo, hombro) {
   return seVe(puntoCodo) && puntoCodo.y < puntoHombro.y;
 }
 
+// Qué tan "en primer plano" está una persona: el ancho de sus hombros en la imagen
+// (el que está más cerca de la cámara se ve más ancho), un poco menos si está muy a un costado.
+function puntaje(cuerpo) {
+  const izquierdo = cuerpo[PUNTOS.HOMBRO_IZQUIERDO];
+  const derecho = cuerpo[PUNTOS.HOMBRO_DERECHO];
+  if (!seVe(izquierdo) || !seVe(derecho)) return 0;
+
+  const ancho = Math.abs(izquierdo.x - derecho.x);
+  const centro = (izquierdo.x + derecho.x) / 2;
+  const distanciaAlMedio = Math.abs(centro - 0.5); // 0 = justo en el medio, 0.5 = en el borde
+  return ancho * (1 - distanciaAlMedio);
+}
+
+// De todas las personas que ve, elige la que está jugando: la de mayor puntaje
+function elegirJugador(personas) {
+  let mejor = null;
+  let mejorPuntaje = -1;
+  for (const cuerpo of personas) {
+    const valor = puntaje(cuerpo);
+    if (valor > mejorPuntaje) {
+      mejor = cuerpo;
+      mejorPuntaje = valor;
+    }
+  }
+  return mejor;
+}
+
 // Lee un cuadro de la cámara. Devuelve null si no ve a nadie, o:
 // { manoIzquierda: sí/no, manoDerecha: sí/no, puntos: los 33 puntos (para el modo calibración) }
 export function leerCuerpo(video) {
   if (!detector || video.readyState < 2) return null;
 
   const resultado = detector.detectForVideo(video, performance.now());
-  const cuerpo = resultado.landmarks[0];
+  const cuerpo = elegirJugador(resultado.landmarks);
   if (!cuerpo) return null;
 
   // "Izquierda" es la mano izquierda del chico, que en la pantalla espejada aparece a la izquierda

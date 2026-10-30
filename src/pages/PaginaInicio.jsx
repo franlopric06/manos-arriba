@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { MODOS } from "../config";
+import Propaganda from "../components/Propaganda";
 
 // Pantalla de bienvenida: muestra cómo se juega, opciones de cámara y voz, y un botón por cada modo
 export default function PaginaInicio({ estadoCamara, camaras, camaraId, alElegirCamara, alJugar }) {
@@ -18,12 +19,12 @@ export default function PaginaInicio({ estadoCamara, camaras, camaraId, alElegir
       {/* Cómo se juega: mano izquierda = seguro, mano derecha = peligroso */}
       <div className="flex items-end justify-center gap-[min(6vw,3rem)]">
         <figure className="flex flex-col items-center gap-1">
-                   <img src="/iconos/mano.webp" alt="" className="h-[min(10vh,16vw)]" />
-          <figcaption className="text-[max(0.8rem,min(2.6vh,1.1rem))] font-extrabold text-seguro">Izquierda = seguro</figcaption>
+          <img src="/iconos/mano.webp" alt="" className="h-[min(10vh,16vw)]" />
+          <figcaption className="rounded-full bg-black/55 px-3 py-0.5 text-[max(0.8rem,min(2.6vh,1.1rem))] font-extrabold text-seguro">Izquierda = seguro</figcaption>
         </figure>
         <figure className="flex flex-col items-center gap-1">
-                    <img src="/iconos/mano.webp" alt="" className="h-[min(10vh,16vw)] -scale-x-100" />
-          <figcaption className="text-[max(0.8rem,min(2.6vh,1.1rem))] font-extrabold text-peligro">Derecha = peligroso</figcaption>
+          <img src="/iconos/mano.webp" alt="" className="h-[min(10vh,16vw)] -scale-x-100" />
+          <figcaption className="rounded-full bg-black/55 px-3 py-0.5 text-[max(0.8rem,min(2.6vh,1.1rem))] font-extrabold text-peligro">Derecha = peligroso</figcaption>
         </figure>
       </div>
 
@@ -87,6 +88,8 @@ export default function PaginaInicio({ estadoCamara, camaras, camaraId, alElegir
       </div>
 
       <p className="max-w-[46ch] text-[max(0.75rem,min(2.2vh,0.95rem))] font-semibold text-tinta-suave">{aviso}</p>
+
+      <Propaganda tamaño="chico" />
     </div>
   );
 }
