@@ -8,7 +8,7 @@ export default function Propaganda({ tamaño = "grande" }) {
       <p className="flex items-center justify-center gap-2 text-[max(0.75rem,min(2.2vh,0.95rem))] font-extrabold text-tinta-suave">
         <img src={LOGO} alt="Logo del IEST" className="size-[max(2rem,min(5vh,2.75rem))] shrink-0" />
         <span>
-          Hecho por estudiantes de la <span className="text-estrella">Tecnicatura Superior en Desarrollo de Software</span>{" "}
+          Creado por estudiantes de la <span className="text-estrella">Tecnicatura Superior en Desarrollo de Software</span>{" "}
           · IEST Tinogasta
         </span>
       </p>
